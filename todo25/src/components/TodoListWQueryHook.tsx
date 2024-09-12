@@ -1,7 +1,11 @@
+import { useState } from "react";
 import useTodos from "../hooks/useTodos";
 
 const TodoListWQueryHook = () => {
-  const { data: todos, error, isLoading } = useTodos();
+  
+  const [userId, setuserId] = useState<number>()
+  
+  const { data: todos, error, isLoading } = useTodos(userId);
 
   return (
     <>
