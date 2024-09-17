@@ -1,15 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-interface Todo {
+  interface Todo {
     userId: number
     id: number;
     title: string;
     completed: boolean;
 }
 
+interface TodoQuery {
+    page: number;
+    pageSize: number
+}
 
-const useTodos = (userId: number | undefined) => {
+
+const useTodos = (query: TodoQuery) => {
 
     
 
@@ -17,13 +22,14 @@ const useTodos = (userId: number | undefined) => {
         axios
             .get<Todo[]>("https://jsonplaceholder.typicode.com/todos",{
                 params: {
-                    userId
+                   _start:(query.page -1) * query.pageSize,
+                   _limit: query.pageSize
                 }
             })
             .then((res) => res.data)
 
     return useQuery<Todo[], Error>({
-        queryKey: userId ? ["users",userId,"todos"]: ["todos"],
+        queryKey: ["todos",query],
         queryFn: fetchTodos,
         staleTime: 10 * 1000 //stale to 10 sec
     });
