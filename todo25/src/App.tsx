@@ -17,6 +17,7 @@ const App = () => {
    {/* <TodoListWQueryHookSelect/> */}
    <TodoForm/>
 <TodoListWQuery/>
+{/* <TodoListWQueryInf/> */}
    </>
   )
 }
